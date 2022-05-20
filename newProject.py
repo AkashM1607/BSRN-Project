@@ -62,12 +62,12 @@ while True:
                 zustand=False
                 break
 #if schiff!=spalte/zeile
-    board[zeile][(ord(spalte))-65] = miss
+    board[zeile-1][(ord(spalte))-65] = miss
     print("Schuss ins Leere")
     print_grid(board)
     break
 # if schiff==spalte/zeile
-    board[zeile][(ord(spalte))-65]= hit
+    board[zeile-1][(ord(spalte))-65]= hit
     print("Sie haben ein Schiff getroffen")
     print_grid(board)
 

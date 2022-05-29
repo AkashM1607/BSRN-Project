@@ -57,8 +57,8 @@ while True:
     zustand=True
     while zustand:
         zeile=int(input("Zeile:"))
-        for i in range(spielfeldgröße-1):
-            if zeile == i:
+        for i in range(spielfeldgröße):
+            if zeile == i+1:
                 zustand=False
                 break
 #if schiff!=spalte/zeile

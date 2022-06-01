@@ -36,22 +36,30 @@ def print_grid():
 print_grid()
 
 def place_ship():
+
+
     ships = {"Ship1": 5,
              "Ship2": 4,
              "Ship3": 3,
              "Ship4": 2}
-    Zeile = int(input("Zeile"))-1
-    Spalte = (input("Spalte"))
-    ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
 
-    for i in range(ships["Ship1"]):
-        if ShipPosition == 0:
-            board[Zeile][(i + ord(Spalte))-65] = "x"
-        else:
-            board[i + Zeile][ord(Spalte)-65] = "x"
+    for i in range(1):
+        print("Welche Zeile soll das Schlachtschiff gesetzt werden")
+        Zeile = int(input("Zeile")) - 1
+        print("Welche Spalte soll das Schlachtschiff gesetzt werden")
+        Spalte = (input("Spalte"))
+        ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+
+        for i in range(ships["Ship1"]):
+            if ShipPosition == 0:
+                board[Zeile][(i + ord(Spalte)) - 65] = "x"
+            else:
+                board[i + Zeile][ord(Spalte) - 65] = "x"
 
     for i in range(2):
+        print("Welche Zeile soll der",i+1,"te Kreuzer gesetzt werden")
         Zeile = int(input("Zeile")) - 1
+        print("Welche Spalte soll der",i+1,"te Kreuzer gesetzt werden")
         Spalte = (input("Spalte"))
         ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
         for i in range(ships["Ship2"]):
@@ -61,7 +69,9 @@ def place_ship():
                 board[i + Zeile][ord(Spalte) - 65] = "x"
 
     for i in range(3):
+        print("Welche Zeile soll der",i+1,"te Zerstörer gesetzt werden")
         Zeile = int(input("Zeile")) - 1
+        print("Welche Spalte soll der",i+1,"te Zerstörer gesetzt werden")
         Spalte = (input("Spalte"))
         ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
         for i in range(ships["Ship3"]):
@@ -71,7 +81,9 @@ def place_ship():
                 board[i + Zeile][ord(Spalte) - 65] = "x"
 
     for i in range(4):
+        print("Welche Zeile soll das",i+1,"te Uboot gesetzt werden")
         Zeile = int(input("Zeile")) - 1
+        print("Welche Spalte soll das",i+1,"te Uboot gesetzt werden")
         Spalte = (input("Spalte"))
         ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
         for i in range(ships["Ship4"]):

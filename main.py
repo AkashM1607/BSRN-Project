@@ -50,13 +50,18 @@ def place_ship():
     for j in range(1):
         while True:
             zustand = True
-            while zustand:
-                print("Welche Zeile soll das Schlachtschiff gesetzt werden")
-                Zeile = int(input("Zeile")) - 1
-                for i in range(spielfeldgröße):
-                    if Zeile == i:
-                        zustand = False
-                        break
+            while True:
+                try:
+                    while zustand:
+                        print("Welche Zeile soll das Schlachtschiff gesetzt werden")
+                        Zeile = int(input("Zeile")) - 1
+                        for i in range(spielfeldgröße):
+                            if Zeile == i:
+                                zustand = False
+                                break
+                    break
+                except ValueError:
+                    print("Falsche Eingabe")
             zustand = True
             while zustand:
                 print("Welche Spalte soll das Schlachtschiff gesetzt werden")
@@ -79,13 +84,18 @@ def place_ship():
     for j in range(2):
         while True:
             zustand = True
-            while zustand:
-                print("Welche Zeile soll der",j+1,"te Kreuzer gesetzt werden")
-                Zeile = int(input("Zeile")) - 1
-                for i in range(spielfeldgröße):
-                    if Zeile == i:
-                        zustand = False
-                        break
+            while True:
+                try:
+                    while zustand:
+                        print("Welche Zeile soll der", j + 1, "te Kreuzer gesetzt werden")
+                        Zeile = int(input("Zeile")) - 1
+                        for i in range(spielfeldgröße):
+                            if Zeile == i:
+                                zustand = False
+                                break
+                    break
+                except ValueError:
+                    print("Falsche Eingabe")
             zustand = True
             while zustand:
                 print("Welche Spalte soll der",j+1,"te Kreuzer gesetzt werden")
@@ -106,13 +116,18 @@ def place_ship():
     for j in range(3):
         while True:
             zustand = True
-            while zustand:
-                print("Welche Zeile soll der",j+1,"te Zerstörer gesetzt werden")
-                Zeile = int(input("Zeile")) - 1
-                for i in range(spielfeldgröße):
-                    if Zeile == i:
-                        zustand = False
-                        break
+            while True:
+                try:
+                    while zustand:
+                        print("Welche Zeile soll der", j + 1, "te Zerstörer gesetzt werden")
+                        Zeile = int(input("Zeile")) - 1
+                        for i in range(spielfeldgröße):
+                            if Zeile == i:
+                                zustand = False
+                                break
+                    break
+                except ValueError:
+                    print("Falsche Eingabe")
             zustand = True
             while zustand:
                 print("Welche Spalte soll der",j+1,"te Zerstörer gesetzt werden")
@@ -133,13 +148,18 @@ def place_ship():
     for j in range(4):
         while True:
             zustand = True
-            while zustand:
-                print("Welche Zeile soll das",j+1,"te Uboot gesetzt werden")
-                Zeile = int(input("Zeile")) - 1
-                for i in range(spielfeldgröße):
-                    if Zeile == i:
-                        zustand = False
-                        break
+            while True:
+                try:
+                    while zustand:
+                        print("Welche Zeile soll das", j + 1, "te Uboot gesetzt werden")
+                        Zeile = int(input("Zeile")) - 1
+                        for i in range(spielfeldgröße):
+                            if Zeile == i:
+                                zustand = False
+                                break
+                    break
+                except ValueError:
+                    print("Falsche Eingabe")
             zustand = True
             while zustand:
                 print("Welche Spalte soll das",j+1,"te Uboot gesetzt werden")
@@ -158,7 +178,7 @@ def place_ship():
                 board[i + Zeile][ord(Spalte) - 65] = "x"
 
 place_ship()
-# print_grid()
+print_grid()
 # Zeile=int(input("Welche Zeile"))-1
 # Spalte=(input("Welche Spalte"))
 #

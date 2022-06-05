@@ -138,28 +138,32 @@ def placeship(Board):
     for i in range(ships["Ship1"]):
 
         if ShipPosition == 0:
-            Board3[Zeile][(i + ord(Spalte)) - 65] = "x"
+            Board3[Zeile][(i + ord(Spalte)) - 65] = "s"
 
 
 
 
         else:
-            Board3[i + Zeile][ord(Spalte) - 65] = "x"
-        array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "x"]
+            Board3[i + Zeile][ord(Spalte) - 65] = "s"
+        array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
 
-        if array2 in Gone:
-            print("Geht nicht")
+    for p in array2:
+        if any(p in sublist for sublist in Gone):
+            print("geht nicht")
             break
-        if ShipPosition == 0:
-            Board[Zeile][(i + ord(Spalte)) - 65] = "x"
+        for i in range(ships["Ship1"]):
+            if ShipPosition == 0:
+                Board[Zeile][(i + ord(Spalte)) - 65] = "s"
 
 
 
 
-        else:
-            Board[i + Zeile][ord(Spalte) - 65] = "x"
+
+            else:
+                Board[i + Zeile][ord(Spalte) - 65] = "s"
 
     print(array2)
+
 
 
 # liste=[1,3,2]
@@ -170,7 +174,7 @@ print_grid(Board1)
 # print(liste.index(3))
 #print(Player1)
 
-
+#print_grid(Board3)
 
 
 # Board1[0][0]="x"
@@ -178,3 +182,11 @@ print_grid(Board1)
 # a = Board1
 #
 # [(ix,iy) for ix, row in enumerate(a) for iy, i in enumerate(row) if i == "x"]
+
+# a=[[1,2,3]]
+# b=[1,4,5]
+# for i in b:
+#
+#     if any(i in sublist for sublist in a):
+#         print("ja")
+#         print(i)

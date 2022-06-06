@@ -55,6 +55,7 @@ def print_grid(Board):
 print_grid(Board1)
 
 def placeship(Board):
+    Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
     while True:
         zustand = True
         while True:
@@ -108,62 +109,66 @@ def placeship(Board):
     Gone.append(array)
     print(Gone)
 
-    while True:
-        zustand = True
+    for i in range(shipcount["Ship2"]):
         while True:
-            try:
-                while zustand:
-                    print("Welche Zeile soll das Schlachtschiff gesetzt werden")
-                    Zeile = int(input("Zeile")) - 1
-                    for i in range(spielfeldgröße):
-                        if Zeile == i:
-                            zustand = False
-                            break
-                break
-            except ValueError:
-                print("Falsche Eingabe")
-        zustand = True
-        while zustand:
-            print("Welche Spalte soll das Schlachtschiff gesetzt werden")
-            Spalte = (input("Spalte"))
-            for i in range(spielfeldgröße):
-                if Spalte == chr(i + 65):
-                    zustand = False
+            zustand = True
+            while True:
+                try:
+                    while zustand:
+                        print("Welche Zeile soll das Schlachtschiff gesetzt werden")
+                        Zeile = int(input("Zeile")) - 1
+                        for i in range(spielfeldgröße):
+                            if Zeile == i:
+                                zustand = False
+                                break
                     break
+                except ValueError:
+                    print("Falsche Eingabe")
+            zustand = True
+            while zustand:
+                print("Welche Spalte soll das Schlachtschiff gesetzt werden")
+                Spalte = (input("Spalte"))
+                for i in range(spielfeldgröße):
+                    if Spalte == chr(i + 65):
+                        zustand = False
+                        break
 
-        break
-
-    ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
-
-    for i in range(ships["Ship1"]):
-
-        if ShipPosition == 0:
-            Board3[Zeile][(i + ord(Spalte)) - 65] = "s"
-
-
-
-
-        else:
-            Board3[i + Zeile][ord(Spalte) - 65] = "s"
-        array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
-
-    for p in array2:
-        if any(p in sublist for sublist in Gone):
-            print("geht nicht")
             break
-        for i in range(ships["Ship1"]):
-            if ShipPosition == 0:
-                Board[Zeile][(i + ord(Spalte)) - 65] = "s"
 
+        ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+
+        for i in range(ships["Ship2"]):
+
+            if ShipPosition == 0:
+                Board3[Zeile][(i + ord(Spalte)) - 65] = "s"
 
 
 
 
             else:
-                Board[i + Zeile][ord(Spalte) - 65] = "s"
+                Board3[i + Zeile][ord(Spalte) - 65] = "s"
+        array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
+        Board3.clear()
+        Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
 
+        for p in array2:
+            if any(p in sublist for sublist in Gone):
+                print("geht nicht")
+                break
+            for i in range(ships["Ship2"]):
+                if ShipPosition == 0:
+                    Board[Zeile][(i + ord(Spalte)) - 65] = "s"
+
+
+
+
+
+                else:
+                    Board[i + Zeile][ord(Spalte) - 65] = "s"
+        if any(p in sublist for sublist in Gone)==False:
+            Gone.append(array2)
     print(array2)
-
+    print(Gone)
 
 
 # liste=[1,3,2]
@@ -190,3 +195,8 @@ print_grid(Board1)
 #     if any(i in sublist for sublist in a):
 #         print("ja")
 #         print(i)
+
+# Board3[0][5]="s"
+# Board3[0][4]="s"
+# a=[[2,3,4],[3,4,5]]
+# Board3.clear()

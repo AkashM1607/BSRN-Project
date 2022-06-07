@@ -109,13 +109,13 @@ def placeship(Board):
     Gone.append(array)
     print(Gone)
 
-    for i in range(shipcount["Ship2"]):
+    for j in range(shipcount["Ship2"]):
         while True:
             zustand = True
             while True:
                 try:
                     while zustand:
-                        print("Welche Zeile soll das Schlachtschiff gesetzt werden")
+                        print("Welche Zeile soll der",j+1,"te Kreuzer gesetzt werden")
                         Zeile = int(input("Zeile")) - 1
                         for i in range(spielfeldgröße):
                             if Zeile == i:
@@ -126,7 +126,7 @@ def placeship(Board):
                     print("Falsche Eingabe")
             zustand = True
             while zustand:
-                print("Welche Spalte soll das Schlachtschiff gesetzt werden")
+                print("Welche Spalte soll der",j+1,"te Kreuzer gesetzt werden")
                 Spalte = (input("Spalte"))
                 for i in range(spielfeldgröße):
                     if Spalte == chr(i + 65):
@@ -150,23 +150,22 @@ def placeship(Board):
         array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
         Board3.clear()
         Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
-
         for p in array2:
-            if any(p in sublist for sublist in Gone):
-                print("geht nicht")
+            a=any(p in sublist for sublist in Gone)
+            if a==True:
+                print("Geht nicht")
                 break
+        if a==False:
             for i in range(ships["Ship2"]):
                 if ShipPosition == 0:
                     Board[Zeile][(i + ord(Spalte)) - 65] = "s"
 
-
-
-
-
                 else:
                     Board[i + Zeile][ord(Spalte) - 65] = "s"
-        if any(p in sublist for sublist in Gone)==False:
+
+        if any(p in sublist for sublist in Gone) == False:
             Gone.append(array2)
+
     print(array2)
     print(Gone)
 
@@ -200,3 +199,20 @@ print_grid(Board1)
 # Board3[0][4]="s"
 # a=[[2,3,4],[3,4,5]]
 # Board3.clear()
+
+# Board3[1][0]="s"
+# Board3[1][1]="s"
+# Board3[1][2]="s"
+# Board3[1][3]="s"
+#
+# print_grid(Board3)
+# array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
+# Gone=[[(0,1),(0,2),(1,6),(0,6)]]
+# for q in array2:
+#     if any(q in sublist for sublist in Gone):
+#         print(q)
+#     else:
+#         Board3[3][2] = "s"
+#         Board3[4][2] = "s"
+#         Board3[5][2] = "s"
+#         Board3[6][2] = "s"

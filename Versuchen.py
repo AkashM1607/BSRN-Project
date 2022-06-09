@@ -1,25 +1,26 @@
 import sys
-spielfeldgröße=8
-Player1=[]
-Player2=[]
-space= " "
-Name1=input()
-Name2=input()
-Gone=[]
-Board1,Board2 = [[space] * spielfeldgröße for i in range(spielfeldgröße)],\
-                [[space] * spielfeldgröße for i in range(spielfeldgröße)]
 
-Guess1,Guess2= [[space] * spielfeldgröße for i in range(spielfeldgröße)],\
-                [[space] * spielfeldgröße for i in range(spielfeldgröße)]
+spielfeldgröße = 8
+Player1 = []
+Player2 = []
+space = " "
+Name1 = input()
+Name2 = input()
+Gone = []
+Board1, Board2 = [[space] * spielfeldgröße for i in range(spielfeldgröße)], \
+                 [[space] * spielfeldgröße for i in range(spielfeldgröße)]
 
-Board3=[[space] * spielfeldgröße for i in range(spielfeldgröße)]
+Guess1, Guess2 = [[space] * spielfeldgröße for i in range(spielfeldgröße)], \
+                 [[space] * spielfeldgröße for i in range(spielfeldgröße)]
+
+Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
 
 ships = {"Ship1": 5,
-             "Ship2": 4,
-             "Ship3": 3,
-             "Ship4": 2}
+         "Ship2": 4,
+         "Ship3": 3,
+         "Ship4": 2}
 
-shipcount= {"Ship1": 1,
+shipcount = {"Ship1": 1,
              "Ship2": 2,
              "Ship3": 3,
              "Ship4": 4}
@@ -35,24 +36,26 @@ Player2.append(Guess2)
 Player2.append(ships)
 
 
-
 def print_grid(Board):
-    #Buchstaben Notation als Spalte
+    # Buchstaben Notation als Spalte
     sys.stdout.write("  ")
     for i in range(spielfeldgröße):
         sys.stdout.write(" " + chr(i + 65))
     print(" ")
 
-    #Schönere Darstellung
+    # Schönere Darstellung
     row_number = 1
     for row in Board:
-        if row_number<10:
-            grid=("%d |%s|" % (row_number,"|".join(row)))
+        if row_number < 10:
+            grid = ("%d |%s|" % (row_number, "|".join(row)))
         else:
             grid = ("%d|%s|" % (row_number, "|".join(row)))
         print(grid)
         row_number += 1
+
+
 print_grid(Board1)
+
 
 def placeship(Board):
     Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
@@ -125,60 +128,66 @@ def placeship(Board):
     print(Gone)
 
     for j in range(shipcount["Ship2"]):
+        a=True
         while True:
             try:
                 while True:
-                    zustand = True
-                    while True:
-                        try:
+                    try:
+                        while True:
+                            zustand = True
+                            while True:
+                                try:
+                                    while zustand:
+                                        print("Welche Zeile soll der", j + 1, "te Kreuzer gesetzt werden")
+                                        Zeile = int(input("Zeile")) - 1
+                                        for i in range(spielfeldgröße):
+                                            if Zeile == i:
+                                                zustand = False
+                                                break
+                                    break
+                                except ValueError:
+                                    print("Falsche Eingabe")
+                            zustand = True
                             while zustand:
-                                print("Welche Zeile soll der", j + 1, "te Kreuzer gesetzt werden")
-                                Zeile = int(input("Zeile")) - 1
+                                print("Welche Spalte soll der", j + 1, "te Kreuzer gesetzt werden")
+                                Spalte = (input("Spalte"))
                                 for i in range(spielfeldgröße):
-                                    if Zeile == i:
+                                    if Spalte == chr(i + 65):
                                         zustand = False
                                         break
+
                             break
-                        except ValueError:
-                            print("Falsche Eingabe")
-                    zustand = True
-                    while zustand:
-                        print("Welche Spalte soll der", j + 1, "te Kreuzer gesetzt werden")
-                        Spalte = (input("Spalte"))
-                        for i in range(spielfeldgröße):
-                            if Spalte == chr(i + 65):
-                                zustand = False
-                                break
 
-                    break
+                        ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
 
-                ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                        for i in range(ships["Ship2"]):
 
-                for i in range(ships["Ship2"]):
-
-                    if ShipPosition == 0:
-                        Board3[Zeile][(i + ord(Spalte)) - 65] = "s"
+                            if ShipPosition == 0:
+                                Board3[Zeile][(i + ord(Spalte)) - 65] = "s"
 
 
 
 
-                    else:
-                        Board3[i + Zeile][ord(Spalte) - 65] = "s"
-                break
-            except IndexError:
-                print("Kein Platz")
+                            else:
+                                Board3[i + Zeile][ord(Spalte) - 65] = "s"
+                        break
+                    except IndexError:
+                        print("Kein Platz")
+                        Board3.clear()
+                        Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
+
+                array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
                 Board3.clear()
                 Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
-                
-        array2 = [(ix, iy) for ix, row in enumerate(Board3) for iy, i in enumerate(row) if i == "s"]
-        Board3.clear()
-        Board3 = [[space] * spielfeldgröße for i in range(spielfeldgröße)]
-        for p in array2:
-            a=any(p in sublist for sublist in Gone)
-            if a==True:
-                print("Geht nicht")
+                for p in array2:
+                    a = any(p in sublist for sublist in Gone)
+                    if a == True:
+                        raise Exception
                 break
-        if a==False:
+            except Exception:
+                print("Nochmal eingeben")
+
+        if a == False:
             for i in range(ships["Ship2"]):
                 if ShipPosition == 0:
                     Board[Zeile][(i + ord(Spalte)) - 65] = "s"
@@ -197,11 +206,11 @@ def placeship(Board):
 # indices = [i for i, x in enumerate(liste) if x == 3]
 placeship(Board1)
 print_grid(Board1)
-#print(indices)
+# print(indices)
 # print(liste.index(3))
-#print(Player1)
+# print(Player1)
 
-#print_grid(Board3)
+# print_grid(Board3)
 
 
 # Board1[0][0]="x"

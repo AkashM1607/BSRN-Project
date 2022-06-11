@@ -10,7 +10,7 @@ def schuss():
     thread_1 = Thread(target=timer)         #Erster Thread wird erstellt
     thread_1.start()                        #Thread wird gestartet
     time.sleep(0.5)                         #wartet 0.5 Sekunden (schönere ausgabe)
-    schuss = input("Wo möchten sie hinschißen?")
+    schuss = input("Wo möchten sie hinschießen?")
     print(schuss)
     try:
         #Eingabe passt
@@ -41,7 +41,7 @@ def timer():
     if t == 0:
         #Timer ist abgelaufen, Zufallsschuss kann gesetzt werden
         print("Ihre Zeit ist abgelaufen!")
-        print("zufalls schuss!")
+        print("Zufallsschuss!")
 
 schuss()
 

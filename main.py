@@ -334,7 +334,7 @@ def placeship(Board,Gone,Name):
                             while True:
                                 try:
                                     while zustand:
-                                        print("Welche Zeile soll das", j + 1, "te UBoot gesetzt werden")
+                                        print("Welche Zeile soll das", j + 1, "te U-Boot gesetzt werden")
                                         Zeile = int(input("Zeile")) - 1
                                         for i in range(boardSize):
                                             if Zeile == i:
@@ -345,7 +345,7 @@ def placeship(Board,Gone,Name):
                                     print("Falsche Eingabe")#Falsche Eingabe abfangen
                             zustand = True
                             while zustand:
-                                print("Welche Spalte soll das", j + 1, "te UBoot gesetzt werden")
+                                print("Welche Spalte soll das", j + 1, "te U-Boot gesetzt werden")
                                 Spalte = (input("Spalte"))
                                 for i in range(boardSize):
                                     if Spalte == chr(i + 65):

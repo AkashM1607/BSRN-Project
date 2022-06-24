@@ -479,7 +479,7 @@ def attack(Board,Guess,Name,Gone):
                     Gone3.append("Zerstörer Zerstört")
             if i==6 or i==7 or i==8 or i==9:
                 if Gone[i] == []:
-                    Gone3.append("UBoot Zerstört")
+                    Gone3.append("U-Boot Zerstört")
 
         #Wenn noch kein Schiff Zerstört wurde
         if Gone3 == []:

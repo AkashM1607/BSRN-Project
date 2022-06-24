@@ -329,7 +329,7 @@ def placeship(Board,Gone,Name):
                             while True:
                                 try:
                                     while zustand:
-                                        print("In welche Zeile soll das", j + 1, "te UBoot gesetzt werden")
+                                        print("In welche Zeile soll das", j + 1, "te U-Boot gesetzt werden")
                                         Zeile = int(input("Zeile")) - 1
                                         for i in range(spielfeldgröße):
                                             if Zeile == i:
@@ -340,7 +340,7 @@ def placeship(Board,Gone,Name):
                                     print("Falsche Eingabe!")
                             zustand = True
                             while zustand:
-                                print("In welche Spalte soll das", j + 1, "te UBoot gesetzt werden")
+                                print("In welche Spalte soll das", j + 1, "te U-Boot gesetzt werden")
                                 Spalte = (input("Spalte"))
                                 for i in range(spielfeldgröße):
                                     if Spalte == chr(i + 65):
@@ -498,7 +498,7 @@ def attack(Board,Guess,Name,Gone):
                     Gone3.append("Zerstörer Zerstört!")
             if i==6 or i==7 or i==8 or i==9:
                 if Gone[i] == []:
-                    Gone3.append("UBoot Zerstört!")
+                    Gone3.append("U-Boot Zerstört!")
 
 
         if Gone3 == []:

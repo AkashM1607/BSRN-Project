@@ -16,8 +16,8 @@ while not (8 <= spielfeldgröße <= 12):
 Player1 = []
 Player2 = []
 space = " "
-Name1 = input("Wie heißt Spieler1?")
-Name2 = input("Wie heißt Spieler2?")
+Name1 = input("Wie heißt Spieler1? Spieler1: ")
+Name2 = input("Wie heißt Spieler2? Spieler2: ")
 Gone1 = []
 Gone2 = []
 Board1, Board2 = [[space] * spielfeldgröße for i in range(spielfeldgröße)], \

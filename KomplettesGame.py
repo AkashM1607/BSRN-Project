@@ -88,7 +88,7 @@ def placeship(Board,Gone,Name):
                         try:
                             while zustand:
                                 print("In welche Zeile soll das", j + 1, "te Schlachtschiff gesetzt werden?")
-                                Zeile = int(input("Zeile")) - 1
+                                Zeile = int(input("Zeile: ")) - 1
                                 for i in range(spielfeldgröße):
                                     if Zeile == i:
                                         zustand = False
@@ -109,12 +109,12 @@ def placeship(Board,Gone,Name):
 
                 while True:
                     try:
-                        ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                        ShipPosition = int(input("Tippe 0 für Horizontal und 1 für Vertikal."))
                         if ShipPosition != 1 and ShipPosition != 0:
                             raise Exception
                         break
                     except Exception:
-                        print("Keine Zulässige eingabe, nochmal eingeben")
+                        print("Unzulässige Eingabe, nochmal eingeben")
 
                 for i in range(ships["Ship1"]):
 
@@ -173,7 +173,7 @@ def placeship(Board,Gone,Name):
                                                 break
                                     break
                                 except ValueError:
-                                    print("Falsche Eingabe")
+                                    print("Falsche Eingabe!")
                             zustand = True
                             while zustand:
                                 print("In welche Spalte soll der", j + 1, "te Kreuzer gesetzt werden?")
@@ -187,7 +187,7 @@ def placeship(Board,Gone,Name):
 
                         while True:
                             try:
-                                ShipPosition = int(input("Tippe 0 für Horizontal und 1 für Vertikal"))
+                                ShipPosition = int(input("Tippe 0 für Horizontal und 1 für Vertikal."))
                                 if ShipPosition != 1 and ShipPosition != 0:
                                     raise Exception
                                 break
@@ -271,7 +271,7 @@ def placeship(Board,Gone,Name):
                                     raise Exception
                                 break
                             except Exception:
-                                print("Keine Zulässige eingabe, nochmal eingeben")
+                                print("Unzulässige Eingabe, nochmal eingeben")
 
                         for i in range(ships["Ship3"]):
 
@@ -324,7 +324,7 @@ def placeship(Board,Gone,Name):
                                 try:
                                     while zustand:
                                         print("In welche Zeile soll das", j + 1, "te UBoot gesetzt werden")
-                                        Zeile = int(input("Zeile")) - 1
+                                        Zeile = int(input("Zeile: ")) - 1
                                         for i in range(spielfeldgröße):
                                             if Zeile == i:
                                                 zustand = False
@@ -335,7 +335,7 @@ def placeship(Board,Gone,Name):
                             zustand = True
                             while zustand:
                                 print("In welche Spalte soll das", j + 1, "te UBoot gesetzt werden")
-                                Spalte = (input("Spalte"))
+                                Spalte = (input("Spalte: "))
                                 for i in range(spielfeldgröße):
                                     if Spalte == chr(i + 65):
                                         zustand = False
@@ -345,12 +345,12 @@ def placeship(Board,Gone,Name):
 
                         while True:
                             try:
-                                ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                                ShipPosition = int(input("Tippe 0 für Horizontal und 1 für Vertikal."))
                                 if ShipPosition != 1 and ShipPosition != 0:
                                     raise Exception
                                 break
                             except Exception:
-                                print("Keine Zulässige Eingabe, nochmal eingeben")
+                                print("Unzulässige Eingabe, nochmal eingeben")
 
                         for i in range(ships["Ship4"]):
 
@@ -377,7 +377,7 @@ def placeship(Board,Gone,Name):
                         raise Exception
                 break
             except Exception:
-                print("Nochmal eingeben")
+                print("Nochmal eingeben!")
 
         if a == False:
             for i in range(ships["Ship4"]):
@@ -464,11 +464,11 @@ def attack(Board,Guess,Name,Gone):
                     Gone3.append("Zerstörer Zerstört!")
             if i==6 or i==7 or i==8 or i==9:
                 if Gone[i] == []:
-                    Gone3.append("UBoot Zerstört!")
+                    Gone3.append("U-Boot Zerstört!")
 
 
         if Gone3 == []:
-            print("Bis jetzt keine Schiffe Zerstört")
+            print("Bis jetzt keine Schiffe Zerstört.")
         else:
             print(Gone3)
 
@@ -488,10 +488,10 @@ def attack(Board,Guess,Name,Gone):
 
 
 placeship(Board1,Gone1,Name1)
-input("Bitte drücke Enter und übergebe danach die Kontrolle an den anderen Spieler")
+input("Bitte drücke Enter und übergebe die Kontrolle an den anderen Spieler.")
 clearscreen()
 placeship(Board2,Gone2,Name2)
-input("Bitte drücke Enter um das Spiel zu Starten")
+input("Bitte drücke Enter um das Spiel zu Starten.")
 clearscreen()
 
 while True:

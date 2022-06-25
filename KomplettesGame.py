@@ -454,21 +454,21 @@ def attack(Board,Guess,Name,Gone):
         for i in range(10):
             if i==0:
                 if Gone[i] == []:
-                    Gone3.append("Schlachtschiff Zerstört!")
+                    Gone3.append("Schlachtschiff zerstört!")
 
             if i==1 or i==2:
                 if Gone[i] == []:
-                    Gone3.append("Kreuzer Zerstört!")
+                    Gone3.append("Kreuzer zerstört!")
             if i==3 or i==4 or i==5:
                 if Gone[i] == []:
-                    Gone3.append("Zerstörer Zerstört!")
+                    Gone3.append("Zerstörer zerstört!")
             if i==6 or i==7 or i==8 or i==9:
                 if Gone[i] == []:
-                    Gone3.append("U-Boot Zerstört!")
+                    Gone3.append("U-Boot zerstört!")
 
 
         if Gone3 == []:
-            print("Bis jetzt keine Schiffe Zerstört.")
+            print("Bis jetzt keine Schiffe zerstört.")
         else:
             print(Gone3)
 

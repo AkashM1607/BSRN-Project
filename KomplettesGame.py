@@ -4,7 +4,7 @@ spielfeldgröße = 0
 
 while not (8 <= spielfeldgröße <= 12):
     try:
-        print("Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA) zulässige Eingaben: 8-12")
+        print("Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA) zulässige Eingaben: 8-12\n")
         spielfeldgröße = int(input('Spielfeldgröße: '))
         if 12 < spielfeldgröße or spielfeldgröße < 8:
             print('Spielfeldgröße nicht nicht akzeptiert. Zulässige Größe: 8-12')
@@ -435,6 +435,7 @@ def attack(Board,Guess,Name,Gone):
                 while zustand:
                     print("Welche Spalte willst du attackieren?")
                     Spalte = (input("Spalte: "))
+                    print()
                     for i in range(spielfeldgröße):
                         if Spalte == chr(i + 65):
                             zustand = False
@@ -494,7 +495,7 @@ def attack(Board,Guess,Name,Gone):
 
 
 placeship(Board1,Gone1,Name1)
-input("\nBitte drücke Enter und übergebe die Kontrolle an den anderen Spieler.")
+input("\nBitte drücke Enter und übergebe die Kontrolle an den anderen Spieler.\n")
 clearscreen()
 placeship(Board2,Gone2,Name2)
 input("\nBitte drücke Enter um das Spiel zu starten.")

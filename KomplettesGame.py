@@ -4,7 +4,8 @@ spielfeldgröße = 0
 
 while not (8 <= spielfeldgröße <= 12):
     try:
-        spielfeldgröße = int(input('Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA).'))
+        print("Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA) zulässige Eingaben: 8-12")
+        spielfeldgröße = int(input('Spielfeldgröße: '))
         if 12 < spielfeldgröße or spielfeldgröße < 8:
             print('Spielfeldgröße nicht nicht akzeptiert. Zulässige Größe: 8-12')
         else:

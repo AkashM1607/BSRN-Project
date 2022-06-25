@@ -101,7 +101,7 @@ def placeship(Board,Gone,Name):
                                         break
                             break
                         except ValueError:
-                            print("Falsche Eingabe")
+                            print("Falsche Eingabe! Bitte nochmale eingaben. ")
                     zustand = True
                     while zustand:
                         print("In welche Spalte soll das", j + 1, "te Schlachtschiff gesetzt werden?")

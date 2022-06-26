@@ -382,10 +382,10 @@ def placeship(Board,Gone,Name):
                 safe = [(ix, iy) for ix, row in enumerate(board3) for iy, i in enumerate(row) if i == "u"]  #Koordinaten, mit dem Wert u, werden in einem Tuple in eine Liste verpackt
                 board3.clear()
                 board3 = [[space] * boardSize for i in range(boardSize)]
-                for p in safe:  
+                for p in safe:
                     a = any(p in sublist for sublist in Gone)
                     if a == True:
-                        raise Exception 
+                        raise Exception
                 break
             except Exception:
                 print("Nochmal eingeben")#Überlappung abfangen

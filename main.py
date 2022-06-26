@@ -428,8 +428,8 @@ def attack(Board,Guess,Name,Gone):
                 while True:
                     try:
                         while zustand:
-                            print("Welche Zeile willst du attackieren?")
-                            Zeile = int(input("Zeile")) - 1
+                            print("Welche Zeile willst du attackieren?") 
+                            Zeile = int(input("Zeile")) - 1  #Gibt die Zeilen-Koordinate des Schusses wieder
                             for i in range(boardSize):
                                 if Zeile == i:
                                     zustand = False
@@ -440,7 +440,7 @@ def attack(Board,Guess,Name,Gone):
                 zustand = True
                 while zustand:
                     print("Welche Spalte willst du attackieren?")
-                    Spalte = (input("Spalte"))
+                    Spalte = (input("Spalte")) #Gibt die Spalten-Koordinate des Schusses wieder
                     for i in range(boardSize):
                         if Spalte == chr(i + 65):
                             zustand = False

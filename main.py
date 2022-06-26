@@ -379,7 +379,7 @@ def placeship(Board,Gone,Name):
                         board3.clear()
                         board3 = [[space] * boardSize for i in range(boardSize)]
 
-                safe = [(ix, iy) for ix, row in enumerate(board3) for iy, i in enumerate(row) if i == "u"]
+                safe = [(ix, iy) for ix, row in enumerate(board3) for iy, i in enumerate(row) if i == "u"]  #Koordinaten, mit dem Wert u, werden in einem Tuple in eine Liste verpackt
                 board3.clear()
                 board3 = [[space] * boardSize for i in range(boardSize)]
                 for p in safe:
@@ -447,7 +447,7 @@ def attack(Board,Guess,Name,Gone):
                             break
 
                 break
-            if Guess[Zeile][(ord(Spalte)) - 65] == "x" or Guess[Zeile][(ord(Spalte)) - 65] == "0":
+            if Guess[Zeile][(ord(Spalte)) - 65] == "x" or Guess[Zeile][(ord(Spalte)) - 65] == "0": #Kontrolliert, ob ein Feld schon abgeschossen wurde
                 raise Exception
             break
         except Exception:

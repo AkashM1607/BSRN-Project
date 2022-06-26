@@ -1,31 +1,35 @@
 import sys
 
 boardSize = 0
-#Boardgröße bestimmen.
+#Boardgroeße bestimmen:
+#Boardgroeße zwischen 8 und 12 sinvoll
 while not (8 <= boardSize <= 12):
+#Benutzereingabe: int input : nur Zahlen zulässig
     try:
         boardSize = int(input('Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA).'))
         if 12 < boardSize or boardSize < 8:
             print('Spielfeldgröße nicht nicht akzeptiert.')
         else:
             continue
+#input != int, ValueError, um Fehlermeldung zu verhindern
     except ValueError:
-        print("Falsche Eingabe, nur Zahlen erlaubt")
+        print("Falsche Eingabe, nur Zahlen erlaubt.")
 
-#Spieler Profile erstellen
+#Spieler Profile erstellen:
+#Player als leere Liste 
 Player1 = []
 Player2 = []
 space = " "
 Name1 = input("Wie heißt Spieler1?")#Name Spieler1
 Name2 = input("Wie heißt Spieler2?")#Name Spieler2
-#Gone speichert koordinaten als liste von Tupeln von gesetzten Schiffen
+#Gone speichert Koordinaten als Liste von Tupeln von gesetzten Schiffen, erstmal leer 
 Gone1 = []
 Gone2 = []
 #Board 1 und Board 2 für Spieler 1 und Spieler 2
 Board1, Board2 = [[space] * boardSize for i in range(boardSize)], \
                  [[space] * boardSize for i in range(boardSize)]
 
-#Boards für Abgeschlossene versuche
+#Boards für abgeschlossene Versuche
 Guess1, Guess2 = [[space] * boardSize for i in range(boardSize)], \
                  [[space] * boardSize for i in range(boardSize)]
 
@@ -41,7 +45,7 @@ shipcount = {"Ship1": 1,
              "Ship3": 3,
              "Ship4": 4}
 
-#Spieler Profil, alle Werte zuweisen.
+#Player Liste wird befüllt mit append: Zuordnung von Name, Board, Guess 
 Player1.append(Name1)
 Player1.append(Board1)
 Player1.append(Guess1)
@@ -64,11 +68,12 @@ clearscreen()
 def print_grid(Board):
     # Buchstaben Notation als Spalte
     sys.stdout.write("  ")
+    #Board Spaltenbeschriftung
     for i in range(boardSize):
         sys.stdout.write(" " + chr(i + 65))
     print(" ")
 
-    # Schönere Darstellung
+    # Schönere Darstellung, Board mit Zeilenbeschriftung 
     row_number = 1
     for row in Board:
         if row_number < 10:
@@ -77,14 +82,17 @@ def print_grid(Board):
             grid = ("%d|%s|" % (row_number, "|".join(row)))
         print(grid)
         row_number += 1
+        #board3 speichert schiffe , koordinaten in Gone überführt array 2 tupel prüft ob drin 
 
 
 #Schiffe Platzieren
 def placeship(Board,Gone,Name):
     print(Name+",","Bitte Platziere deine Schiffe")
     print_grid(Board)
-    #Board um Später Kooardinaten gültiger versuche zu bekommen bevor man ins richtige Board einsetzt
+    #Board3 als Kontrollboard, unsichtbar im Hintergrund zur Speicherung der Schiffe 
     board3 = [[space] * boardSize for i in range(boardSize)]
+    
+    #Schiffe setzten: Schifftyp 1 : Schlachtschiff
     for j in range(shipcount["Ship1"]):
         while True:
             try:
@@ -92,6 +100,7 @@ def placeship(Board,Gone,Name):
                     zustand = True
                     while True:
                         try:
+                            #Eingabe Zeile, Zulässigkeit
                             while zustand:
                                 print("Welche Zeile soll das", j + 1, "te Schlachtschiff gesetzt werden")
                                 Zeile = int(input("Zeile")) - 1
@@ -101,7 +110,8 @@ def placeship(Board,Gone,Name):
                                         break
                             break
                         except ValueError:
-                            print("Falsche Eingabe")#falsche Eingaben abfangen
+                            print("Falsche Eingabe")#Falsche Eingaben abfangen
+                    #Eingabe Spalte, Zulässigkeit         
                     zustand = True
                     while zustand:
                         print("Welche Spalte soll das", j + 1, "te Schlachtschiff gesetzt werden")
@@ -112,7 +122,7 @@ def placeship(Board,Gone,Name):
                                 break
 
                     break
-
+                #Platzierung des Schiffs Horizontal/ Vertikal
                 while True:
                     try:
                         ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
@@ -120,37 +130,38 @@ def placeship(Board,Gone,Name):
                             raise Exception
                         break
                     except Exception:
-                        print("Keine Zulässige eingabe, nochmal eingeben")#Falsche eingabe Abfangen
-
+                        print("Keine Zulässige eingabe, nochmal eingeben")#Falsche Eingabe abfangen
+                
+                #Schiff in Board 3 setzen, speichern
                 for i in range(ships["Ship1"]):
 
                     if ShipPosition == 0:
                         board3[Zeile][(i + ord(Spalte)) - 65] = "s"
 
-
-
-
-                    else:
+                     else:
                         board3[i + Zeile][ord(Spalte) - 65] = "s"
                 break
+            #Wenn Platzierung nicht möglich, abfangen 
             except IndexError:
-                print("Kein Platz")#Platzierung Außerhalb des Boardes abfangen
+                print("Kein Platz")
+                #Board 3 leeren, um ungültig gesetzes Schiff zu löschen 
                 board3.clear()
                 board3 = [[space] * boardSize for i in range(boardSize)]
-        #die Koordinaten von den platzierten schiffteilen auf board3 abspeichern
+                
+        #gesetztes Schiff in Board3 speichern: Korrdinaten der Schiffteile
         safe = [(ix, iy) for ix, row in enumerate(board3) for iy, i in enumerate(row) if i == "s"]
-        #board3 für weiteren verlauf resetten, für mehrere schiffe des selben typs.
+        #board3 für weiteren Verlauf resetten
         board3.clear()
         board3 = [[space] * boardSize for i in range(boardSize)]
         for p in safe:
-            #überprüfen ob Koordinaten von platzierten schiffen in liste Gone existiert
+            #Überprüfen ob Koordinaten von platzierten Schiffen in Liste Gone existiert
             a = any(p in sublist for sublist in Gone)
-            #falls schon in Gone existiert, dann nicht auf dem echten Board nochmal setzen da schon vorhanden
+            #Koordinate bereits in Gone existiert, Position besetzt: nicht im Augabe Board setzetn 
             if a == True:
                 print("Geht nicht")
                 break
         if a == False:
-            #Falls noch nicht existiert, dann auf dem echten Board setzen
+            #Koordinate existiert  noch nicht in Gone, Position frei: im Ausgabe Board setzen
             for i in range(ships["Ship1"]):
                 if ShipPosition == 0:
                     Board[Zeile][(i + ord(Spalte)) - 65] = "s"
@@ -159,12 +170,12 @@ def placeship(Board,Gone,Name):
                     Board[i + Zeile][ord(Spalte) - 65] = "s"
 
         if any(p in sublist for sublist in Gone) == False:
-            #In Gone die Koordinaten vom neu gesetzen Schiff abspeichern umd später Überlappung zu vermeiden.
+            #In Gone die Koordinaten vom neu gesetzen Schiff abspeichern um später Überlappung zu vermeiden.
             Gone.append(safe)
         print_grid(Board)
 
 
-
+#Gleiches Vorgehen für Ship 2-Kruezer
     for j in range(shipcount["Ship2"]):
         a=True
         while True:
@@ -210,9 +221,6 @@ def placeship(Board,Gone,Name):
                             if ShipPosition == 0:
                                 board3[Zeile][(i + ord(Spalte)) - 65] = "k"
 
-
-
-
                             else:
                                 board3[i + Zeile][ord(Spalte) - 65] = "k"
                         break
@@ -244,6 +252,7 @@ def placeship(Board,Gone,Name):
             Gone.append(safe)
         print_grid(Board)
 
+    #Gleiches Vorgehen für Schiff 3 - Zerstörer
     for j in range(shipcount["Ship3"]):
         a=True
         while True:
@@ -323,6 +332,7 @@ def placeship(Board,Gone,Name):
             Gone.append(safe)
         print_grid(Board)
 
+    #Gleiches Vorgehen für Schiff 4 - U-Boot
     for j in range(shipcount["Ship4"]):
         a=True
         while True:
@@ -382,10 +392,10 @@ def placeship(Board,Gone,Name):
                 safe = [(ix, iy) for ix, row in enumerate(board3) for iy, i in enumerate(row) if i == "u"]  #Koordinaten, mit dem Wert u, werden in einem Tuple in eine Liste verpackt
                 board3.clear()
                 board3 = [[space] * boardSize for i in range(boardSize)]
-                for p in safe:
+                for p in safe:  
                     a = any(p in sublist for sublist in Gone)
                     if a == True:
-                        raise Exception
+                        raise Exception 
                 break
             except Exception:
                 print("Nochmal eingeben")#Überlappung abfangen
@@ -403,10 +413,6 @@ def placeship(Board,Gone,Name):
         print_grid(Board)
 
 
-
-
-
-
 #placeship(Board1)
 #print_grid(Board1)
 
@@ -414,7 +420,7 @@ def attack(Board,Guess,Name,Gone):
 
     print(Name,"ist dran, bitte Bildschirm übergeben")
     input(Name+", Bitte Enter drücken \n")
-    #Richtige Board zuordnung für Spieler
+    #Richtige Board Zuordnung für Spieler
     if Board==Board1:
         print_grid(Board2)
         print_grid(Guess)
@@ -427,9 +433,10 @@ def attack(Board,Guess,Name,Gone):
                 zustand = True
                 while True:
                     try:
+                        #Eingabe Zeile für Schuss
                         while zustand:
-                            print("Welche Zeile willst du attackieren?") 
-                            Zeile = int(input("Zeile")) - 1  #Gibt die Zeilen-Koordinate des Schusses wieder
+                            print("Welche Zeile willst du attackieren?")
+                            Zeile = int(input("Zeile")) - 1
                             for i in range(boardSize):
                                 if Zeile == i:
                                     zustand = False
@@ -438,29 +445,31 @@ def attack(Board,Guess,Name,Gone):
                     except ValueError:
                         print("Falsche Eingabe")
                 zustand = True
+                #Eingabe Spalte für Schuss
                 while zustand:
                     print("Welche Spalte willst du attackieren?")
-                    Spalte = (input("Spalte")) #Gibt die Spalten-Koordinate des Schusses wieder
+                    Spalte = (input("Spalte"))
                     for i in range(boardSize):
                         if Spalte == chr(i + 65):
                             zustand = False
                             break
 
                 break
-            if Guess[Zeile][(ord(Spalte)) - 65] == "x" or Guess[Zeile][(ord(Spalte)) - 65] == "0": #Kontrolliert, ob ein Feld schon abgeschossen wurde
+            #Guess prüft, ob auf dieser Position schon geschossen wurde
+            if Guess[Zeile][(ord(Spalte)) - 65] == "x" or Guess[Zeile][(ord(Spalte)) - 65] == "0":
                 raise Exception
             break
         except Exception:
             print("Dieses Feld wurde schon überprüft nach Schiffen")#Falls schon überprüft, abfangen
             print("Bitte ein anderes Feld eingeben")
     Gone3 = []
-    #falls im Board ein Schiff Platziert wurde
+    #Wenn Schiff auf Position platziert wurde und Position nicht bereits beschossen, dann 'x' : Schiffteil getroffen
     if(Board[Zeile][(ord(Spalte)) - 65]) != " ":
         Guess[Zeile][(ord(Spalte)) - 65]="x"
-        #Koordinaten speichern von getroffenen Schiffen
+        #Koordinaten speichern von getroffenen Schiffteilen
         shot = ([(ix, iy) for ix, row in enumerate(Guess) for iy, i in enumerate(row) if i == "x"])
         for p in shot:
-            #Wenn die Koordinaten vom getroffenen Schiff in Gone Existieren
+            #Wenn die Koordinaten vom getroffenen Schiff in Gone existieren
             b=any(p in sublist for sublist in Gone)
             if b==True:
                 #Von Gone diese Koordinate entfernen, da dieses Schiffsteil getroffen wurde
@@ -470,7 +479,6 @@ def attack(Board,Guess,Name,Gone):
             if i==0:
                 if Gone[i] == []:
                     Gone3.append("Schlachtschiff Zerstört")
-
             if i==1 or i==2:
                 if Gone[i] == []:
                     Gone3.append("Kreuzer Zerstört")
@@ -483,13 +491,14 @@ def attack(Board,Guess,Name,Gone):
 
         #Wenn noch kein Schiff Zerstört wurde
         if Gone3 == []:
-            print("Bis jetzt keine Schiffe Zerstört")
+            print("Schiffteil getroffen, bis jetzt keine Schiffe Zerstört")
         else:
             print(Gone3)
     #Wenn in Board kein Schiff eingetragen wurde, in Guess als Fehlschuss markieren
     if (Board[Zeile][(ord(Spalte)) - 65]) == " ":
         Guess[Zeile][(ord(Spalte)) - 65] = "0"
         print("Fehlschuss")
+        
     #Richtige Zuordnung von Spieler Board und Guess Board
     if Board==Board1:
         print_grid(Board2)
@@ -497,7 +506,7 @@ def attack(Board,Guess,Name,Gone):
     elif Board==Board2:
         print_grid(Board1)
         print_grid(Guess)
-    #Wenn alle Schiffe Zerstört wurden, endet das Spiel
+    #Wenn alle Schiffe zerstört wurden, endet das Spiel
     if Gone[0] == [] and Gone[1] == [] and Gone[2] == [] and Gone[3] == [] and Gone[4] == [] and Gone[5] == []\
             and Gone[6] == [] and Gone[7] == [] and Gone[8] == [] and Gone[9] == []:
         sys.exit("Game Over"+" "+Name+" "+"hat Gewonnen")
@@ -510,6 +519,7 @@ placeship(Board2,Gone2,Name2)
 input("Bitte drücke Enter um das Spiel zu Starten")
 clearscreen()
 
+#Spiel läuft als Schleife, bis Game Over
 while True:
     attack(Board2,Guess1,Name1,Gone2)#spieler1
     input("")

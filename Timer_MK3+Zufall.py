@@ -34,7 +34,7 @@ def schuss():
             print("Timer läuft weiter:")
 
 def zufall():
-    list1=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i','j','k','l']      #Liste der Spalten
+    list1=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H','I','J','K','L']      #Liste der Spalten
     list2=[1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12]                           #Liste der Zeilen
     b=random.randint(0,spielfeldgröße)
     a=random.randint(0,spielfeldgröße)

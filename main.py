@@ -6,9 +6,9 @@ boardSize = 0
 while not (8 <= boardSize <= 12):
 #Benutzereingabe: int input : nur Zahlen zulässig
     try:
-        boardSize = int(input('Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA).'))
+        boardSize = int(input('Bitte geben Sie die gewünschte Spielfeldgröße ein (AxA) zulässige Eingaben: 8-12: '))
         if 12 < boardSize or boardSize < 8:
-            print('Spielfeldgröße nicht nicht akzeptiert.')
+            print('Spielfeldgröße nicht nicht akzeptiert. Zulässige Größen: 8-12')
         else:
             continue
 #input != int, ValueError, um Fehlermeldung zu verhindern
@@ -20,8 +20,8 @@ while not (8 <= boardSize <= 12):
 Player1 = []
 Player2 = []
 space = " "
-Name1 = input("Wie heißt Spieler1?")#Name Spieler1
-Name2 = input("Wie heißt Spieler2?")#Name Spieler2
+Name1 = input("Wie heißt Spieler1? Spieler1: ")#Name Spieler1
+Name2 = input("Wie heißt Spieler2? Spieler2: ")#Name Spieler2
 #Gone speichert Koordinaten als Liste von Tupeln von gesetzten Schiffen, erstmal leer 
 Gone1 = []
 Gone2 = []
@@ -88,6 +88,7 @@ def print_grid(Board):
 #Schiffe Platzieren
 def placeship(Board,Gone,Name):
     print(Name+",","Bitte Platziere deine Schiffe")
+    print("")
     print_grid(Board)
     #Board3 als Kontrollboard, unsichtbar im Hintergrund zur Speicherung der Schiffe 
     board3 = [[space] * boardSize for i in range(boardSize)]
@@ -102,20 +103,20 @@ def placeship(Board,Gone,Name):
                         try:
                             #Eingabe Zeile, Zulässigkeit
                             while zustand:
-                                print("Welche Zeile soll das", j + 1, "te Schlachtschiff gesetzt werden")
-                                Zeile = int(input("Zeile")) - 1
+                                print("\nWelche Zeile soll das", j + 1, "te Schlachtschiff gesetzt werden?")
+                                Zeile = int(input("Zeile: ")) - 1
                                 for i in range(boardSize):
                                     if Zeile == i:
                                         zustand = False
                                         break
                             break
                         except ValueError:
-                            print("Falsche Eingabe")#Falsche Eingaben abfangen
+                            print("Unzulässige Eingabe! Nochmal eingeben! ")#Falsche Eingaben abfangen
                     #Eingabe Spalte, Zulässigkeit         
                     zustand = True
                     while zustand:
-                        print("Welche Spalte soll das", j + 1, "te Schlachtschiff gesetzt werden")
-                        Spalte = (input("Spalte"))
+                        print("\nWelche Spalte soll das", j + 1, "te Schlachtschiff gesetzt werden?")
+                        Spalte = (input("Spalte: "))
                         for i in range(boardSize):
                             if Spalte == chr(i + 65):
                                 zustand = False
@@ -125,12 +126,12 @@ def placeship(Board,Gone,Name):
                 #Platzierung des Schiffs Horizontal/ Vertikal
                 while True:
                     try:
-                        ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                        ShipPosition = int(input("\n Tippe 0 für Horizontal und 1 für Vertikal: "))
                         if ShipPosition != 1 and ShipPosition != 0:
                             raise Exception
                         break
                     except Exception:
-                        print("Keine Zulässige eingabe, nochmal eingeben")#Falsche Eingabe abfangen
+                        print("Unzulässige Eingabe! Nochmal eingeben! ")#Falsche Eingabe abfangen
                 
                 #Schiff in Board 3 setzen, speichern
                 for i in range(ships["Ship1"]):
@@ -143,7 +144,7 @@ def placeship(Board,Gone,Name):
                 break
             #Wenn Platzierung nicht möglich, abfangen 
             except IndexError:
-                print("Kein Platz")
+                print("Kein Platz! Board wurde überquert! nochmal eingeben! ")
                 #Board 3 leeren, um ungültig gesetzes Schiff zu löschen 
                 board3.clear()
                 board3 = [[space] * boardSize for i in range(boardSize)]
@@ -158,7 +159,7 @@ def placeship(Board,Gone,Name):
             a = any(p in sublist for sublist in Gone)
             #Koordinate bereits in Gone existiert, Position besetzt: nicht im Augabe Board setzetn 
             if a == True:
-                print("Geht nicht")
+                print("Überlappung! Nochmal versuchen!")
                 break
         if a == False:
             #Koordinate existiert  noch nicht in Gone, Position frei: im Ausgabe Board setzen
@@ -187,19 +188,19 @@ def placeship(Board,Gone,Name):
                             while True:
                                 try:
                                     while zustand:
-                                        print("Welche Zeile soll der", j + 1, "te Kreuzer gesetzt werden")
-                                        Zeile = int(input("Zeile")) - 1
+                                        print("\nWelche Zeile soll der", j + 1, "te Kreuzer gesetzt werden?")
+                                        Zeile = int(input("Zeile: ")) - 1
                                         for i in range(boardSize):
                                             if Zeile == i:
                                                 zustand = False
                                                 break
                                     break
                                 except ValueError:
-                                    print("Falsche Eingabe")#Falsche Eingabe abfangen
+                                    print("Unzulässige Eingabe! Nochmal eingeben! ")#Falsche Eingabe abfangen
                             zustand = True
                             while zustand:
-                                print("Welche Spalte soll der", j + 1, "te Kreuzer gesetzt werden")
-                                Spalte = (input("Spalte"))
+                                print("\nWelche Spalte soll der", j + 1, "te Kreuzer gesetzt werden?")
+                                Spalte = (input("Spalte: "))
                                 for i in range(boardSize):
                                     if Spalte == chr(i + 65):
                                         zustand = False
@@ -209,12 +210,12 @@ def placeship(Board,Gone,Name):
 
                         while True:
                             try:
-                                ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                                ShipPosition = int(input("\nTippe 0 für Horizontal und 1 für Vertikal: "))
                                 if ShipPosition != 1 and ShipPosition != 0:
                                     raise Exception
                                 break
                             except Exception:
-                                print("Keine Zulässige eingabe, nochmal eingeben")#Falsche Eingabe Abfangen
+                                print("Unzulässige Eingabe! Nochmal eingeben")#Falsche Eingabe Abfangen
 
                         for i in range(ships["Ship2"]):
 
@@ -225,7 +226,7 @@ def placeship(Board,Gone,Name):
                                 board3[i + Zeile][ord(Spalte) - 65] = "k"
                         break
                     except IndexError:
-                        print("Kein Platz")#Platzierung Außerhalb Board abfangen
+                        print("Kein Platz! Board wurde überquert! nochmal eingeben! ")#Platzierung Außerhalb Board abfangen
                         board3.clear()
                         board3 = [[space] * boardSize for i in range(boardSize)]
 
@@ -238,7 +239,7 @@ def placeship(Board,Gone,Name):
                         raise Exception
                 break
             except Exception:
-                print("Nochmal eingeben")#Überlappung Abfangen
+                print("Überlappung! Nochmal versuchen! ")#Überlappung Abfangen
 
         if a == False:
             for i in range(ships["Ship2"]):
@@ -264,19 +265,19 @@ def placeship(Board,Gone,Name):
                             while True:
                                 try:
                                     while zustand:
-                                        print("Welche Zeile soll der", j + 1, "te Zerstörer gesetzt werden")
-                                        Zeile = int(input("Zeile")) - 1
+                                        print("\nWelche Zeile soll der", j + 1, "te Zerstörer gesetzt werden?")
+                                        Zeile = int(input("Zeile: ")) - 1
                                         for i in range(boardSize):
                                             if Zeile == i:
                                                 zustand = False
                                                 break
                                     break
                                 except ValueError:
-                                    print("Falsche Eingabe")#Falsche Eingabe Abfangen
+                                    print("Unzulässige Eingabe! Nochmal eingeben! ")#Falsche Eingabe Abfangen
                             zustand = True
                             while zustand:
-                                print("Welche Spalte soll der", j + 1, "te Zerstörer gesetzt werden")
-                                Spalte = (input("Spalte"))
+                                print("\nWelche Spalte soll der", j + 1, "te Zerstörer gesetzt werden?")
+                                Spalte = (input("Spalte: "))
                                 for i in range(boardSize):
                                     if Spalte == chr(i + 65):
                                         zustand = False
@@ -286,12 +287,12 @@ def placeship(Board,Gone,Name):
 
                         while True:
                             try:
-                                ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                                ShipPosition = int(input("\nTippe 0 für Horizontal und 1 für Vertikal: "))
                                 if ShipPosition != 1 and ShipPosition != 0:
                                     raise Exception
                                 break
                             except Exception:
-                                print("Keine Zulässige eingabe, nochmal eingeben")#Falsche Eingabe Abfangen
+                                print("Unzulässige Eingabe! Nochmal eingeben! ")#Falsche Eingabe Abfangen
 
                         for i in range(ships["Ship3"]):
 
@@ -305,7 +306,7 @@ def placeship(Board,Gone,Name):
                                 board3[i + Zeile][ord(Spalte) - 65] = "z"
                         break
                     except IndexError:
-                        print("Kein Platz")#Platzierung außerhalb Board abfangen
+                        print("Kein Platz! Board wurde überquert! nochmal eingeben! ")#Platzierung außerhalb Board abfangen
                         board3.clear()
                         board3 = [[space] * boardSize for i in range(boardSize)]
 
@@ -318,7 +319,7 @@ def placeship(Board,Gone,Name):
                         raise Exception
                 break
             except Exception:
-                print("Nochmal eingeben")#Überlappung abfangen
+                print("Überlappung! Nochmal versuchen! ")#Überlappung abfangen
 
         if a == False:
             for i in range(ships["Ship3"]):
@@ -344,19 +345,19 @@ def placeship(Board,Gone,Name):
                             while True:
                                 try:
                                     while zustand:
-                                        print("Welche Zeile soll das", j + 1, "te U-Boot gesetzt werden")
-                                        Zeile = int(input("Zeile")) - 1
+                                        print("\nWelche Zeile soll das", j + 1, "te U-Boot gesetzt werden?")
+                                        Zeile = int(input("Zeile: ")) - 1
                                         for i in range(boardSize):
                                             if Zeile == i:
                                                 zustand = False
                                                 break
                                     break
                                 except ValueError:
-                                    print("Falsche Eingabe")#Falsche Eingabe abfangen
+                                    print("Unzulässige Eingabe, nochmal eingeben! ")#Falsche Eingabe abfangen
                             zustand = True
                             while zustand:
-                                print("Welche Spalte soll das", j + 1, "te U-Boot gesetzt werden")
-                                Spalte = (input("Spalte"))
+                                print("\nWelche Spalte soll das", j + 1, "te U-Boot gesetzt werden?")
+                                Spalte = (input("Spalte: "))
                                 for i in range(boardSize):
                                     if Spalte == chr(i + 65):
                                         zustand = False
@@ -366,12 +367,12 @@ def placeship(Board,Gone,Name):
 
                         while True:
                             try:
-                                ShipPosition = int(input("0 für Horizontal und 1 für Vertikal"))
+                                ShipPosition = int(input("\nTippe 0 für Horizontal und 1 für Vertikal: "))
                                 if ShipPosition != 1 and ShipPosition != 0:
                                     raise Exception
                                 break
                             except Exception:
-                                print("Keine Zulässige eingabe, nochmal eingeben")#falsche Eingabe abfangen
+                                print("Unzulässige Eingabe! Nochmal eingeben! ")#falsche Eingabe abfangen
 
                         for i in range(ships["Ship4"]):
 
@@ -385,7 +386,7 @@ def placeship(Board,Gone,Name):
                                 board3[i + Zeile][ord(Spalte) - 65] = "u"
                         break
                     except IndexError:
-                        print("Kein Platz")#Platzierung außerhalb Board abfangen
+                        print("Kein Platz! Board wurde überquert! nochmal eingeben! ")#Platzierung außerhalb Board abfangen
                         board3.clear()
                         board3 = [[space] * boardSize for i in range(boardSize)]
 
@@ -398,7 +399,7 @@ def placeship(Board,Gone,Name):
                         raise Exception 
                 break
             except Exception:
-                print("Nochmal eingeben")#Überlappung abfangen
+                print("Überlappung! Nochmal versuchen! ")#Überlappung abfangen
 
         if a == False:
             for i in range(ships["Ship4"]):
@@ -418,7 +419,7 @@ def placeship(Board,Gone,Name):
 
 def attack(Board,Guess,Name,Gone):
 
-    print(Name,"ist dran, bitte Bildschirm übergeben")
+    print(Name,"ist dran, bitte Bildschirm übergeben!\n")
     input(Name+", Bitte Enter drücken \n")
     #Richtige Board Zuordnung für Spieler
     if Board==Board1:
@@ -436,19 +437,19 @@ def attack(Board,Guess,Name,Gone):
                         #Eingabe Zeile für Schuss
                         while zustand:
                             print("Welche Zeile willst du attackieren?")
-                            Zeile = int(input("Zeile")) - 1
+                            Zeile = int(input("Zeile: ")) - 1
                             for i in range(boardSize):
                                 if Zeile == i:
                                     zustand = False
                                     break
                         break
                     except ValueError:
-                        print("Falsche Eingabe")
+                        print("Unzulässige Eingabe! Nochmal eingeben! ")
                 zustand = True
                 #Eingabe Spalte für Schuss
                 while zustand:
                     print("Welche Spalte willst du attackieren?")
-                    Spalte = (input("Spalte"))
+                    Spalte = (input("Spalte: "))
                     for i in range(boardSize):
                         if Spalte == chr(i + 65):
                             zustand = False
@@ -460,8 +461,8 @@ def attack(Board,Guess,Name,Gone):
                 raise Exception
             break
         except Exception:
-            print("Dieses Feld wurde schon überprüft nach Schiffen")#Falls schon überprüft, abfangen
-            print("Bitte ein anderes Feld eingeben")
+            print("Dieses Feld wurde schon nach Schiffen überprüft! ")#Falls schon überprüft, abfangen
+            print("Bitte ein anderes Feld eingeben! ")
     Gone3 = []
     #Wenn Schiff auf Position platziert wurde und Position nicht bereits beschossen, dann 'x' : Schiffteil getroffen
     if(Board[Zeile][(ord(Spalte)) - 65]) != " ":
@@ -478,26 +479,26 @@ def attack(Board,Guess,Name,Gone):
         for i in range(10):
             if i==0:
                 if Gone[i] == []:
-                    Gone3.append("Schlachtschiff Zerstört")
+                    Gone3.append("Schlachtschiff Zerstört!")
             if i==1 or i==2:
                 if Gone[i] == []:
-                    Gone3.append("Kreuzer Zerstört")
+                    Gone3.append("Kreuzer Zerstört!")
             if i==3 or i==4 or i==5:
                 if Gone[i] == []:
-                    Gone3.append("Zerstörer Zerstört")
+                    Gone3.append("Zerstörer Zerstört!")
             if i==6 or i==7 or i==8 or i==9:
                 if Gone[i] == []:
-                    Gone3.append("U-Boot Zerstört")
+                    Gone3.append("U-Boot Zerstört!")
 
         #Wenn noch kein Schiff Zerstört wurde
         if Gone3 == []:
-            print("Schiffteil getroffen, bis jetzt keine Schiffe Zerstört")
+            print("\nSchiffteil getroffen! Bis jetzt keine Schiffe zerstört.\n")
         else:
             print(Gone3)
     #Wenn in Board kein Schiff eingetragen wurde, in Guess als Fehlschuss markieren
     if (Board[Zeile][(ord(Spalte)) - 65]) == " ":
         Guess[Zeile][(ord(Spalte)) - 65] = "0"
-        print("Fehlschuss")
+        print("Fehlschuss!")
         
     #Richtige Zuordnung von Spieler Board und Guess Board
     if Board==Board1:
@@ -513,10 +514,10 @@ def attack(Board,Guess,Name,Gone):
 
 
 placeship(Board1,Gone1,Name1)
-input("Bitte drücke Enter und Übergebe Dannach die Kontrolle den anderen Spieler")
+input("\nBitte drücke Enter und übergebe die Kontrolle an den anderen Spieler.\n")
 clearscreen()
 placeship(Board2,Gone2,Name2)
-input("Bitte drücke Enter um das Spiel zu Starten")
+input("Bitte drücke Enter um das Spiel zu starten.")
 clearscreen()
 
 #Spiel läuft als Schleife, bis Game Over

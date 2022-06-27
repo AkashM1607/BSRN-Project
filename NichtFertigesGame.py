@@ -6,6 +6,11 @@ import os
 
 exit_event = threading.Event()
 
+game = threading.Semaphore(3) #2 Spieler + Timer
+
+def Spielertest():
+    game.acquire()
+    game.release()
 
 spielfeldgröße = 0
 
